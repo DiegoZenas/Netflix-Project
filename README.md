@@ -33,9 +33,8 @@ select
 	distinct type
 from netflix;
 
--- 15 buisness problems
 
--- count tv vs movies
+## count tv vs movies
 select* from netflix
 select
 	type,
@@ -43,7 +42,7 @@ select
 	from netflix
 	group by type
 
--- common rating for movies and tv shows
+## common rating for movies and tv shows
 
 SELECT type, rating
 FROM
@@ -59,7 +58,7 @@ FROM
 WHERE ranking = 1;
 
 
--- list all the movies released in 2020
+## list all the movies released in 2020
 
 select * from netflix
 WHERE 
@@ -68,7 +67,7 @@ WHERE
 	release_year = 2020
 
 
--- top 5 countries with most content on netflix
+## top 5 countries with most content on netflix
 
 select 
 		unnest(String_to_array (country, ',')) as new_country,
@@ -82,7 +81,7 @@ select
 	unnest(String_to_array (country, ',')) as new_country
 From netflix
 
--- longest movie
+## longest movie
 
 select * from netflix
 where
@@ -90,7 +89,7 @@ where
 	and 
 	duration = (select max(duration)from netflix)
 
--- content add in last 10 years
+## content add in last 10 years
 
 select 
 	*
@@ -98,11 +97,11 @@ from netflix
 where
 	to_date(date_added, 'month DD, YYYY') >= current_date - interval '10 years'
 
--- find conten by director rajiv chilaka
+## find conten by director rajiv chilaka
 select * from netflix
 where director Ilike '%Rajiv Chilaka%'
 
---list tv shows with more than 5 seasons
+## list tv shows with more than 5 seasons
 select 
 	*
 from netflix 
@@ -111,7 +110,7 @@ where
 	and
  SPLIT_PART (duration, ' ',1)::numeric > 5 
 
- -- count # of content in each genre
+ ## count # of content in each genre
 
 select 
 	unnest(string_to_array(listed_in, ',')) as genre,
@@ -119,8 +118,8 @@ select
 from netflix
 group by 1
 
--- find each year and the average numbers of content released by united states on netflix.
---return top 5 years with highest avg content release
+## find each year and the average numbers of content released by united states on netflix.  return top 5 years with highest avg content release
+
 
 select 
 	extract(year from to_date( date_added, 'Month DD, YYYY')) as year,
@@ -132,24 +131,24 @@ from netflix
 where country ='United States'
 group by 1
 
--- list movies that are documentaries
+## list movies that are documentaries
 select * from netflix
 where
 listed_in Ilike '%documentaries%'
 
--- find all content without a director
+## find all content without a director
 select * from netflix
 where
 director is null
 
---how many movies did salam kham appeared in the last ten years
+## how many movies did salam kham appeared in the last ten years
 select * from netflix
 where
 	casts ilike '%Salman Khan%'
 	and
 	release_year > extract(year from current_date) - 10
 
--- find top 10 actors from the US
+## find top 10 actors from the US
 select
 unnest(String_To_Array(casts, ',')) as actors,
 count(*) as total_content
@@ -160,7 +159,7 @@ group by 1
 order by 2 DESC
 limit 10
 
---categorize the content based on the presence of the keywords 'kill' and violence in the description field. Label content containing these keywords as 'bad' and all other content as 'good'. Count how many items fall into each catergory
+## categorize the content based on the presence of the keywords 'kill' and violence in the description field. Label content containing these keywords as 'bad' and all other content as 'good'. Count how many items fall into each catergory
   with new_table
   as
   (
