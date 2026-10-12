@@ -97,13 +97,16 @@ SELECT
 FROM netflix
 WHERE type = 'Movie'
 ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
-
+```
 ### 6. Find Content Added in the Last 10 Years
+
+```sql
 SELECT
     *
 FROM netflix
 WHERE
     TO_DATE(TRIM(date_added), 'FMMonth DD, YYYY') >= CURRENT_DATE - INTERVAL '10 years';
+```
 
 ### 7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
 
