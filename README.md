@@ -138,6 +138,8 @@ FROM netflix
 GROUP BY 1;
 ```
 ### 10.Find each year and the average numbers of content release in India on netflix. return top 5 year with highest avg content release!
+
+```sql
 SELECT
     EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) AS year,
     COUNT(*) AS yearly_content,
@@ -151,6 +153,7 @@ WHERE
 GROUP BY Country, release_year
 Order by avg_release Desc
 Limit 5:
+```
 
 ### 11. List All Movies that are Documentaries
 
@@ -176,6 +179,8 @@ WHERE casts LIKE '%Salman Khan%'
 ```
 
 ### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in the United States
+
+```sql
 SELECT
 	unnest(String_To_Array(casts, ',')) as actors,
 	count(*) as total_content
@@ -184,6 +189,7 @@ where country ILIKE '%United States%'
 group by 1
 order by 2 DESC
 limit 10
+```
 
 ### 15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
 
